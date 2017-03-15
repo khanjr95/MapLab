@@ -5,6 +5,7 @@
 Map::Map(std::string startLocationName)
 {
 	CurrentLocation = new Location(startLocationName);
+	locationsVisited.push(CurrentLocation);
 }
 
 
@@ -12,13 +13,12 @@ Map::~Map()
 {
 }
 
-void Map::Move(Location *newLocation) 
-{	
-	_locationsVisited.push(newLocation);
+void Map::Move(Location *newLocation)
+{
 	CurrentLocation = newLocation;
 }
 
-std::string Map::GetPathBackToHome()
-{
-	return "TODO: Implement this";
-}
+//std::string Map::GetPathBackToHome()
+//{
+//	return "TODO: Implement this";
+//}
