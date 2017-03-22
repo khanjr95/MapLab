@@ -1,4 +1,9 @@
 //Fix the other directions
+//todo
+//1 directions
+//2 lookup locations should remember past locations
+//3  pathback to home 
+//extra todo: how did i get here(queue)
 
 
 #include <iostream>
