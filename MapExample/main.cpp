@@ -44,73 +44,121 @@ int main()
 void GoNorth(Map &map)
 {
 	auto newLocation = map.CurrentLocation->North;
+	int currentX = map.CurrentLocation->getX();
+	int currentY = map.CurrentLocation->getY();
 	if (newLocation == nullptr)
 	{
-		system("cls");
-		cout << "You haven't been here before, enter a name for this place: ";
-		string name;
-		cin >> name;
-		newLocation = new Location(name);
-		cout << "This place is now called: " + name << endl;
+		int newX = currentX;
+		int newY = currentY + 1;
+		auto existing = map.LookupLocationOnMap(newX, newY);
 
+		if (existing == nullptr)
+		{
+			system("cls");
+			cout << "You haven't been here before, enter a name for this place: ";
+			string name;
+			cin >> name;
+			newLocation = new Location(name, newX, newY);
+			cout << "This place is now called: " + name << endl;
+		}
+		else
+		{
+			cout << "You have been here before. " << existing->DisplayLocationInfo();
+			existing->South = map.CurrentLocation;
+			//map.Move(existing);
+		}
 	}
 	else
 	{
 		cout << "You are at: " + newLocation->DisplayLocationInfo();
+		newLocation->South= map.CurrentLocation;
+		
 	}
-	newLocation->South = map.CurrentLocation;
+	
 	map.Move(newLocation);
-	map.locationsVisited.push(map.CurrentLocation);
 
+	//map.locationsVisited.push(map.CurrentLocation);
 	return;
 }
 
 void GoEast(Map &map)
 {
-	//TODO: Implement This
 	auto newLocation = map.CurrentLocation->East;
+	int currentX = map.CurrentLocation->getX();
+	int currentY = map.CurrentLocation->getY();
 	if (newLocation == nullptr)
 	{
-		system("cls");
-		cout << "You haven't been here before, enter a name for this place: ";
-		string name;
-		cin >> name;
-		newLocation = new Location(name);
-		cout << "This place is now called: " + name << endl;
+		int newX = currentX + 1;
+		int newY = currentY;
+		auto existing = map.LookupLocationOnMap(newX, newY);
 
+		if (existing == nullptr)
+		{
+			system("cls");
+			cout << "You haven't been here before, enter a name for this place: ";
+			string name;
+			cin >> name;
+			newLocation = new Location(name, newX, newY);
+			cout << "This place is now called: " + name << endl;
+		}
+		else
+		{
+			cout << "You have been here before. " << existing->DisplayLocationInfo();
+			existing->West = map.CurrentLocation;
+			//map.Move(existing);
+		}
 	}
 	else
 	{
 		cout << "You are at: " + newLocation->DisplayLocationInfo();
+		newLocation->West = map.CurrentLocation;
 	}
-	newLocation->West = map.CurrentLocation;
-	map.Move(newLocation);
-	map.locationsVisited.push(map.CurrentLocation);
-	return;
+		
+		map.Move(newLocation);
+		
+		
+	//	map.locationsVisited.push(map.CurrentLocation);
+		return;
 }
 
 void GoSouth(Map &map)
 {
 	//TODO: Implement This
 	auto newLocation = map.CurrentLocation->South;
+	int currentX = map.CurrentLocation->getX();
+	int currentY = map.CurrentLocation->getY();
 	if (newLocation == nullptr)
 	{
-		system("cls");
-		cout << "You haven't been here before, enter a name for this place: ";
-		string name;
-		cin >> name;
-		newLocation = new Location(name);
-		cout << "This place is now called: " + name << endl;
+		int newX = currentX;
+		int newY = currentY - 1;
+		auto existing = map.LookupLocationOnMap(newX, newY);
 
+		if (existing == nullptr)
+		{
+			system("cls");
+			cout << "You haven't been here before, enter a name for this place: ";
+			string name;
+			cin >> name;
+			newLocation = new Location(name, newX, newY);
+			cout << "This place is now called: " + name << endl;
+		}
+		else
+		{
+			cout << "You have been here before. " << existing->DisplayLocationInfo();
+			existing->North= map.CurrentLocation;
+			//map.Move(existing);
+		}
 	}
 	else
 	{
 		cout << "You are at: " + newLocation->DisplayLocationInfo();
+		newLocation->North= map.CurrentLocation;
 	}
-	newLocation->North = map.CurrentLocation;
+	
 	map.Move(newLocation);
-	map.locationsVisited.push(map.CurrentLocation);
 
+
+	//map.locationsVisited.push(map.CurrentLocation);
 	return;
 }
 
@@ -118,23 +166,38 @@ void GoWest(Map &map)
 {
 	//TODO: Implement This
 	auto newLocation = map.CurrentLocation->West;
+	int currentX = map.CurrentLocation->getX();
+	int currentY = map.CurrentLocation->getY();
 	if (newLocation == nullptr)
 	{
-		system("cls");
-		cout << "You haven't been here before, enter a name for this place: ";
-		string name;
-		cin >> name;
-		newLocation = new Location(name);
-		cout << "This place is now called: " + name << endl;
+		int newX = currentX - 1;
+		int newY = currentY;
+		auto existing = map.LookupLocationOnMap(newX, newY);
 
+		if (existing == nullptr)
+		{
+			system("cls");
+			cout << "You haven't been here before, enter a name for this place: ";
+			string name;
+			cin >> name;
+			newLocation = new Location(name, newX, newY);
+			cout << "This place is now called: " + name << endl;
+		}
+		else
+		{
+			cout << "You have been here before. " << existing->DisplayLocationInfo();
+			existing->East = map.CurrentLocation;
+			//map.Move(existing);
+		}
 	}
 	else
 	{
 		cout << "You are at: " + newLocation->DisplayLocationInfo();
+		newLocation->East = map.CurrentLocation;
+		
 	}
-	newLocation->East = map.CurrentLocation;
 	map.Move(newLocation);
-	map.locationsVisited.push(map.CurrentLocation);
+	//map.locationsVisited.push(map.CurrentLocation);
 	return;
 }
 
@@ -142,8 +205,10 @@ void PathToHome(Map &map)
 {
 	while (map.locationsVisited.empty() == false) 
 	{
+		
 		string x = map.locationsVisited.top()->DisplayLocationInfo();
-		cout << "Now at " << x << endl;
 		map.locationsVisited.pop();
+		cout << "Now at " << x << endl;
+		
 	}
 }
