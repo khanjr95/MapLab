@@ -26,6 +26,11 @@ Location * Map::LookupLocationOnMap(int x, int y)
 	std::string hash = "(" + std::to_string(x) + "," + std::to_string(y) + ")";
 	return _mapLookup[hash];
 }
+void Map::stfn(Location *newLocation)
+{
+	CurrentLocation = newLocation;
+	visitedLocations.push(newLocation);
+}
 
 //std::string Map::GetPathBackToHome()
 //{

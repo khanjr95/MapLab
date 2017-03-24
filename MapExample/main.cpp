@@ -7,6 +7,7 @@ void GoSouth(Map &map);
 void GoEast(Map &map);
 void GoWest(Map &map);
 void PathToHome(Map &map);
+void homeToPath(Map &map);
 
 
 int main()
@@ -22,6 +23,7 @@ int main()
 		cout << "4) Go South" << endl;
 		cout << "5) Go west" << endl;
 		cout << "6) Path To Home" << endl;
+		cout << "7) From Home to Path" << endl;
 		cout << "0) Exit" << endl;
 		cin >> choice;
 
@@ -33,6 +35,7 @@ int main()
 		case 4: GoSouth(map); break;
 		case 5: GoWest(map); break;
 		case 6: system("cls"); PathToHome(map); break;  /*map.GetPathBackToHome() <<*/
+		case 7: homeToPath(map); break;
 		default: cout << "Enter a valid option"; break;
 		}
 		system("pause");
@@ -76,6 +79,7 @@ void GoNorth(Map &map)
 	}
 	
 	map.Move(newLocation);
+	map.stfn(newLocation);
 
 	//map.locationsVisited.push(map.CurrentLocation);
 	return;
@@ -115,7 +119,7 @@ void GoEast(Map &map)
 	}
 		
 		map.Move(newLocation);
-		
+		map.stfn(newLocation);
 		
 	//	map.locationsVisited.push(map.CurrentLocation);
 		return;
@@ -156,7 +160,7 @@ void GoSouth(Map &map)
 	}
 	
 	map.Move(newLocation);
-
+	map.stfn(newLocation);
 
 	//map.locationsVisited.push(map.CurrentLocation);
 	return;
@@ -197,6 +201,7 @@ void GoWest(Map &map)
 		
 	}
 	map.Move(newLocation);
+	map.stfn(newLocation);
 	//map.locationsVisited.push(map.CurrentLocation);
 	return;
 }
@@ -209,6 +214,15 @@ void PathToHome(Map &map)
 		string x = map.locationsVisited.top()->DisplayLocationInfo();
 		map.locationsVisited.pop();
 		cout << "Now at " << x << endl;
-		
+	}
+}
+
+void homeToPath(Map &map)
+{
+	while (map.visitedLocations.empty() == false)
+	{
+		string x = map.visitedLocations.front()->DisplayLocationInfo();
+		map.visitedLocations.pop();
+		cout << "Now at " << x << endl;
 	}
 }
